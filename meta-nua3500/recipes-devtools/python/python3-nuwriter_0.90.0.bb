@@ -31,6 +31,7 @@ DEPENDS += " \
     python3-crcmod-native \
     python3-ecdsa-native \
     python3-six-native \
+    jq-native \
 "
 
 BBCLASSEXTEND = "native nativesdk"

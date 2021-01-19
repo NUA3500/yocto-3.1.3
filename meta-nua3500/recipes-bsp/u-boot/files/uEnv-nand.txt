@@ -9,5 +9,5 @@ stderr=serial
 stdin=serial
 stdout=serial
 bootcmd=nboot 0x7fc0 0 0x200000\; bootm 0x7fc0
-device=nand
-
+mtdids=nand0=nand0
+mtdparts=mtdparts=atmel_nand:1M@0(FIB),15M(FIT),-(user)

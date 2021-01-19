@@ -57,6 +57,12 @@ EXTRA_IMAGEDEPENDS += "python3-nuwriter-native"
 IMAGE_FSTYPES = " spinand sdcard nand ext2 tar.bz2 "
 IMAGE_CLASSES = "image_types_nvt"
 
+# Block size for SPINAND, kb
+SPINAND_BLKZ ?= "128"
+
+# Block size for NAND, kb
+NAND_BLKZ ?= "128"
+
 # Disable the serial console due to auto-serial-console
 SERIAL_CONSOLES = "115200;ttyS0"
 

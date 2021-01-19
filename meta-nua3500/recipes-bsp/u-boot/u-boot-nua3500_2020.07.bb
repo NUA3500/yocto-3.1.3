@@ -20,6 +20,7 @@ SRCREV = "master"
 SRC_URI += " file://uEnv-spinand.txt \
              file://uEnv-nand.txt \
              file://uEnv-sdcard.txt \
+             file://images.its \
            "
 
 PV = "${SRCBRANCH}"
@@ -67,6 +68,7 @@ do_deploy_append() {
         done
         unset  i
     fi
+    cp ${WORKDIR}/images.its ${DEPLOY_DIR_IMAGE}/images.its
 }
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"

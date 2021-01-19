@@ -6,6 +6,7 @@ do_image_nand[depends] = "virtual/trusted-firmware-a:do_deploy \
                           virtual/kernel:do_deploy \
                           virtual/bootloader:do_deploy \
                           python3-nuwriter-native:do_deploy \
+                          jq-native:do_populate_sysroot \
                          "
 
 IMAGE_TYPEDEP_spinand = "ubi"
@@ -14,6 +15,7 @@ do_image_spinand[depends] = "virtual/trusted-firmware-a:do_deploy \
                              virtual/kernel:do_deploy \
                              virtual/bootloader:do_deploy \
                              python3-nuwriter-native:do_deploy \
+                             jq-native:do_populate_sysroot \
                             "
 
 IMAGE_TYPEDEP_sdcard = "ext2"
@@ -22,6 +24,7 @@ do_image_sdcard[depends] = "virtual/trusted-firmware-a:do_deploy \
                             virtual/kernel:do_deploy \
                             virtual/bootloader:do_deploy \
                             python3-nuwriter-native:do_deploy \
+                            jq-native:do_populate_sysroot \
                            "
 
 # Generate the FIP image  with the bl2.bin and required Device Tree
@@ -44,10 +47,18 @@ fi
 }
 
 IMAGE_CMD_spinand() {
+    BLKZ=$(expr ${SPINAND_BLKZ} \* 1024)
+    BL12_ADDR=$(expr ${SPINAND_BLKZ} \* 5)
+    BL12_DTB=$(expr ${SPINAND_BLKZ} \* 6)
     generate_fip_image
     if [ -f ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ubi ]; then
         (cd ${DEPLOY_DIR_IMAGE}; \
          ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ubi rootfs.ubi-spinand; \
+         $(cat nuwriter/header.json | jq 'setpath(["header","image",0,"offset"];"'${BL12_ADDR}'")' > nuwriter/header_tmp.json); \
+         cp nuwriter/header_tmp.json nuwriter/header.json; \
+         $(cat nuwriter/header.json | jq 'setpath(["header","image",1,"offset"];"'${BL12_DTB}'")' > nuwriter/header_tmp.json); \
+         cp nuwriter/header_tmp.json nuwriter/header.json; \
+         rm nuwriter/header_tmp.json; \
          nuwriter/nuwriter -c nuwriter/header.json; \
          nuwriter/nuwriter -p nuwriter/pack-spinand.json; \
          ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-spinand.pack; \
