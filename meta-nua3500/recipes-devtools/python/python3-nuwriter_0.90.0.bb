@@ -17,6 +17,8 @@ SRC_URI += " file://header.json \
              file://pack-nand.json \
              file://pack-sdcard.json \
              file://pack-spinand.json \
+             file://xusb.bin \
+             file://DDR3_256MB_1066MBPS_WINBOND_INIT_BY_DDR32PHY.bin \
            "
 
 DEPENDS += " \
