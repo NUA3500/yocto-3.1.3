@@ -48,6 +48,9 @@ do_install(){
     cp ${WORKDIR}/pack-nand.json  ${D}${datadir}/nuwriter/
     cp ${WORKDIR}/pack-spinand.json  ${D}${datadir}/nuwriter/
     cp ${WORKDIR}/pack-sdcard.json  ${D}${datadir}/nuwriter/
+    
+    cp ${WORKDIR}/xusb.bin  ${D}${datadir}/nuwriter/
+    cp ${WORKDIR}/DDR3_256MB_1066MBPS_WINBOND_INIT_BY_DDR32PHY.bin  ${D}${datadir}/nuwriter/
 }
 
 do_deploy() {
@@ -57,12 +60,11 @@ do_deploy() {
     cp ${WORKDIR}/pack-nand.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     cp ${WORKDIR}/pack-spinand.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     cp ${WORKDIR}/pack-sdcard.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
+    
+    cp ${WORKDIR}/xusb.bin  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
+    cp ${WORKDIR}/DDR3_256MB_1066MBPS_WINBOND_INIT_BY_DDR32PHY.bin  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
 }
 
 FILES_${PN} = ""
 addtask deploy after do_compile
-
-INSANK_SKIP_${PN} += "already-stripped"
-INSANK_SKIP_${PN}-native += "already-stripped"
-INSANK_SKIP_nativesdk-${PN} += "already-stripped"
-
+INSANK_SKIP_${PN}_append = "already-stripped"

@@ -13,6 +13,4 @@ B =  "${WORKDIR}/build"
 
 BBCLASSEXTEND = "native nativesdk"
 
-INSANK_SKIP_${PN} += "already-stripped"
-INSANK_SKIP_${PN}-native += "already-stripped"
-INSANK_SKIP_nativesdk-${PN} += "already-stripped"
+INSANK_SKIP_${PN}_append = "already-stripped"
