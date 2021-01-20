@@ -69,4 +69,6 @@ do_deploy() {
 
 FILES_${PN} = ""
 addtask deploy after do_compile
+INHIBIT_SYSROOT_STRIP = "1
 INSANK_SKIP_${PN}_append = "already-stripped"
+

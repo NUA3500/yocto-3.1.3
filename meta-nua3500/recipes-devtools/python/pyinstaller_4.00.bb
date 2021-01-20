@@ -13,4 +13,5 @@ B =  "${WORKDIR}/build"
 
 BBCLASSEXTEND = "native nativesdk"
 
+INHIBIT_SYSROOT_STRIP = "1"
 INSANK_SKIP_${PN}_append = "already-stripped"
