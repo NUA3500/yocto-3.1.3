@@ -49,8 +49,9 @@ do_install(){
     cp ${WORKDIR}/pack-nand.json  ${D}${datadir}/nuwriter/
     cp ${WORKDIR}/pack-spinand.json  ${D}${datadir}/nuwriter/
     cp ${WORKDIR}/pack-sdcard.json  ${D}${datadir}/nuwriter/
-    
-    cp ${S}/ddrimg ${D}${datadir}/nuwriter/ -r
+   
+    install -d ${D}${datadir}/nuwriter/ddrimg 
+    cp ${S}/ddrimg/* ${D}${datadir}/nuwriter/ 
     cp ${WORKDIR}/xusb.bin  ${D}${datadir}/nuwriter/
 }
 
@@ -62,7 +63,8 @@ do_deploy() {
     cp ${WORKDIR}/pack-spinand.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     cp ${WORKDIR}/pack-sdcard.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     
-    cp ${S}/ddrimg ${D}${${DEPLOYDIR}/${BOOT_TOOLS}}/nuwriter/ -r
+    install -d ${D} ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/ddrimg
+    cp ${S}/ddrimg/* ${${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/ddrimg/
     cp ${WORKDIR}/xusb.bin  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
 }
 
