@@ -18,7 +18,6 @@ SRC_URI += " file://header.json \
              file://pack-sdcard.json \
              file://pack-spinand.json \
              file://xusb.bin \
-             file://DDR3_256MB_1066MBPS_WINBOND_INIT_BY_DDR32PHY.bin \
            "
 
 DEPENDS += " \
@@ -51,8 +50,8 @@ do_install(){
     cp ${WORKDIR}/pack-spinand.json  ${D}${datadir}/nuwriter/
     cp ${WORKDIR}/pack-sdcard.json  ${D}${datadir}/nuwriter/
     
+    cp ${S}/ddrimg ${D}${datadir}/nuwriter/ -r
     cp ${WORKDIR}/xusb.bin  ${D}${datadir}/nuwriter/
-    cp ${WORKDIR}/DDR3_256MB_1066MBPS_WINBOND_INIT_BY_DDR32PHY.bin  ${D}${datadir}/nuwriter/
 }
 
 do_deploy() {
@@ -63,8 +62,8 @@ do_deploy() {
     cp ${WORKDIR}/pack-spinand.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     cp ${WORKDIR}/pack-sdcard.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     
+    cp ${S}/ddrimg ${D}${${DEPLOYDIR}/${BOOT_TOOLS}}/nuwriter/ -r
     cp ${WORKDIR}/xusb.bin  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
-    cp ${WORKDIR}/DDR3_256MB_1066MBPS_WINBOND_INIT_BY_DDR32PHY.bin  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
 }
 
 FILES_${PN} = ""
