@@ -38,7 +38,7 @@
               "loadaddr": "0x28000000",
               "type": "4",
               "file": ""bl2-nua3500.bin"
-            },
+            }
         ]
     }
 }
