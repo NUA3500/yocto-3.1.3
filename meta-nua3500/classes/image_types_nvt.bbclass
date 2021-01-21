@@ -107,6 +107,7 @@ IMAGE_CMD_sdcard() {
         ( cd ${DEPLOY_DIR_IMAGE}; \
             ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 rootfs.ext2-sdcard; \
             nuwriter/nuwriter -c nuwriter/header-sdcard.json; \
+            cp conv/header.bin header-sdcard.bin \	   
             nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
             ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
             rm rootfs.ext2-sdcard \
@@ -121,7 +122,7 @@ IMAGE_CMD_sdcard() {
         parted -s ${SDCARD} mklabel msdos
         parted -s ${SDCARD} unit KiB mkpart primary $(expr ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} + $ROOTFS_SIZE)
 
-        # 0x200
+        # 0x400
         dd if=${DEPLOY_DIR_IMAGE}/conv/header.bin of=${SDCARD} conv=notrunc seek=2 bs=512
 	# 0x10000
         dd if=${DEPLOY_DIR_IMAGE}/ddrimg_tfa.bin of=${SDCARD} conv=notrunc seek=128 bs=512
