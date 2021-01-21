@@ -20,7 +20,7 @@ LOCALVERSION = "-${SRCBRANCH}"
 #KERNEL_SRC ?= "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git;proctocl=git"
 #SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
 
-KERNEL_SRC ?= "git://github.com/NUA3500/linux-5.4.y.git;protocol=https""
+KERNEL_SRC ?= "git://github.com/NUA3500/linux-5.4.y.git;protocol=https"
 SRC_URI = "${KERNEL_SRC}"
 
 SRCREV="${AUTOREV}"
