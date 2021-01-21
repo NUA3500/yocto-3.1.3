@@ -123,7 +123,7 @@ IMAGE_CMD_sdcard() {
 
         # 0x200
         dd if=${DEPLOY_DIR_IMAGE}/conv/header.bin of=${SDCARD} conv=notrunc seek=2 bs=512
-	# 0x200
+	# 0x10000
         dd if=${DEPLOY_DIR_IMAGE}/ddrimg_tfa.bin of=${SDCARD} conv=notrunc seek=128 bs=512
         # 0x20000
         dd if=${DEPLOY_DIR_IMAGE}/bl2-nua3500.dtb of=${SDCARD} conv=notrunc seek=256 bs=512
@@ -132,11 +132,11 @@ IMAGE_CMD_sdcard() {
         # 0x40000
         dd if=${DEPLOY_DIR_IMAGE}/${MACHINE}.dtb of=${SDCARD} conv=notrunc seek=512 bs=512
         # 0x50000
-        dd if=${DEPLOY_DIR_IMAGE}/u-boot-${MACHINE}.bin-sdcard of=${SDCARD} conv=notrunc seek=1024 bs=512
+        dd if=${DEPLOY_DIR_IMAGE}/u-boot-${MACHINE}.bin-sdcard of=${SDCARD} conv=notrunc seek=640 bs=512
         # 0x100000
         dd if=${DEPLOY_DIR_IMAGE}/fip.bin of=${SDCARD} conv=notrunc seek=2048 bs=512
         # 0x200000
-        dd if=${DEPLOY_DIR_IMAGE}/Image-${MACHINE}.bin of=${SDCARD} conv=notrunc seek=2048 bs=512
+        dd if=${DEPLOY_DIR_IMAGE}/Image-${MACHINE}.bin of=${SDCARD} conv=notrunc seek=4096 bs=512
         # root fs
         dd if=${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 of=${SDCARD} conv=notrunc,fsync seek=1 bs=$(expr ${BOOT_SPACE_ALIGNED} \* 1024 + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024)
     fi
