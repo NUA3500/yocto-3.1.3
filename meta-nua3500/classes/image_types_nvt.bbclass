@@ -107,7 +107,7 @@ IMAGE_CMD_sdcard() {
         ( cd ${DEPLOY_DIR_IMAGE}; \
             ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 rootfs.ext2-sdcard; \
             nuwriter/nuwriter -c nuwriter/header-sdcard.json; \
-            cp conv/header.bin header-sdcard.bin \	   
+            cp conv/header.bin header-sdcard.bin; \	   
             nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
             ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
             rm rootfs.ext2-sdcard \
