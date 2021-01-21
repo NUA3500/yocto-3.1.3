@@ -123,6 +123,8 @@ IMAGE_CMD_sdcard() {
 
         # 0x200
         dd if=${DEPLOY_DIR_IMAGE}/conv/header.bin of=${SDCARD} conv=notrunc seek=2 bs=512
+	# 0x200
+        dd if=${DEPLOY_DIR_IMAGE}/ddrimg_tfa.bin of=${SDCARD} conv=notrunc seek=128 bs=512
         # 0x20000
         dd if=${DEPLOY_DIR_IMAGE}/bl2-nua3500.dtb of=${SDCARD} conv=notrunc seek=256 bs=512
         # 0x30000
