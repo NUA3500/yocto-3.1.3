@@ -56,7 +56,9 @@ IMAGE_CMD_spinand() {
         (cd ${DEPLOY_DIR_IMAGE}; \
          ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ubi rootfs.ubi-spinand; \
          nuwriter/nuwriter -c nuwriter/header-spinand.json; \
+         cp conv/header.bin header-spinand.bin; \
          nuwriter/nuwriter -p nuwriter/pack-spinand.json; \
+         cp pack/pack.bin pack-spinand.bin; \
          ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-spinand.pack; \
          rm rootfs.ubi-spinand \
         )
@@ -69,7 +71,9 @@ IMAGE_CMD_nand() {
         (cd ${DEPLOY_DIR_IMAGE}; \
          ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ubi rootfs.ubi-nand; \
          nuwriter/nuwriter -c nuwriter/header-nand.json; \
+         cp conv/header.bin header-nand.bin; \
          nuwriter/nuwriter -p nuwriter/pack-nand.json; \
+         cp pack/pack.bin pack-nand.bin; \
          ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-nand.pack; \
          rm rootfs.ubi-nand \
         )
@@ -83,7 +87,9 @@ IMAGE_CMD_sdcard() {
         ( cd ${DEPLOY_DIR_IMAGE}; \
          ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 rootfs.ext2-sdcard; \
          nuwriter/nuwriter -c nuwriter/header-sdcard.json; \
+         cp conv/header.bin header-sdcard.bin; \
          nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
+         cp pack/pack.bin pack-sdcard.bin; \
          ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
          rm rootfs.ext2-sdcard \
         )
@@ -109,6 +115,7 @@ IMAGE_CMD_sdcard() {
             nuwriter/nuwriter -c nuwriter/header-sdcard.json; \
             cp conv/header.bin header-sdcard.bin; \	   
             nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
+            cp pack/pack.bin pack-sdcard.bin; \
             ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
             rm rootfs.ext2-sdcard \
         )
