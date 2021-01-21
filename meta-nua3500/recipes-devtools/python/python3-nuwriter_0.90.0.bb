@@ -68,7 +68,7 @@ do_deploy() {
     install -d ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/ddrimg
     cp -rf ${B}/nuwriter/* ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     cp ${WORKDIR}/header-nand.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
-    cp ${WORKDIR}/header-spinad.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
+    cp ${WORKDIR}/header-spinand.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     cp ${WORKDIR}/header-sdcard.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     cp ${WORKDIR}/pack-nand.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     cp ${WORKDIR}/pack-spinand.json  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
