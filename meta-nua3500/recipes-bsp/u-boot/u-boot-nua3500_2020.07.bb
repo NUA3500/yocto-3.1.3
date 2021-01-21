@@ -11,7 +11,7 @@ unset _PYTHON_SYSCONFIGDATA_NAME
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
-UBOOT_SRC ?= "git://github.com/schung1218/nua3500-u-boot-v2020.07.git;protocol=https"
+UBOOT_SRC ?= "git://github.com/NUA3500/u-boot-v2020.07.git;protocol=https"
 
 SRCBRANCH = "2020.07"
 SRC_URI = "${UBOOT_SRC}"
