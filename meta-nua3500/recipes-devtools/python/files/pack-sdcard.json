@@ -1,45 +1,45 @@
 {
-    "image":
-    [
-            {
-         	 		"offset": "0x400",
-          		"file": "conv/header.bin",
-          		"type": 0
-        		},
-            {
-              "offset": "0x10000",
-              "file": "ddrimg_tfa.bin"
-              "type": 0
-            },            
-            {
-              "offset": "0x20000",
-              "file": "bl2-nua3500.dtb"
-              "type": 0
-            },
-            {
-              "offset": "0x30000",
-              "file": "bl2-nua3500.bin"
-              "type": 0
-            },
-            {
-          		"offset": "0x40000",
-          		"file": "nua3500-evb.dtb",
-          		"type": 0
-        		},
-          	{
-          		"offset": "0x80000",
-          		"file": "u-boot-initial-env.bin-sdcard",
-          		"type": 0
-        		}, 
-            {
-              "offset": "0x100000",
-              "file": "fip.bin"
-              "type": 0
-            }
-            {
-          		"offset": "0x200000",
-          		"file": "Image",
-          		"type": 0
-        		}          
-    ]
+	"image":
+	[
+	    {
+		    "offset": "0x400",
+		    "file": "conv/header.bin",
+		    "type": 0
+	    },
+	    {
+		    "offset": "0x10000",
+		    "file": "ddrimg_tfa.bin",
+		    "type": 0
+	    },            
+	    {
+		    "offset": "0x20000",
+		    "file": "bl2-nua3500.dtb",
+		    "type": 0
+	    },
+	    {
+		    "offset": "0x30000",
+		    "file": "bl2-nua3500.bin",
+		    "type": 0
+	    },
+	    {
+		    "offset": "0x40000",
+		    "file": "nua3500-evb.dtb",
+		    "type": 0
+	    },
+	    {
+		    "offset": "0x80000",
+		    "file": "u-boot-initial-env.bin-sdcard",
+		    "type": 0
+	    }, 
+	    {
+		    "offset": "0x100000",
+		    "file": "fip.bin",
+		    "type": 0
+	    },
+	    {
+		    "offset": "0x200000",
+		    "file": "Image",
+		    "type": 0
+	    }          
+	]
 }
