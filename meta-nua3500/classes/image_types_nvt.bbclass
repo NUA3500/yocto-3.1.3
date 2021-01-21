@@ -55,12 +55,7 @@ IMAGE_CMD_spinand() {
     if [ -f ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ubi ]; then
         (cd ${DEPLOY_DIR_IMAGE}; \
          ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ubi rootfs.ubi-spinand; \
-         $(cat nuwriter/header.json | jq 'setpath(["header","image",0,"offset"];"'${BL12_ADDR}'")' > nuwriter/header_tmp.json); \
-         cp nuwriter/header_tmp.json nuwriter/header.json; \
-         $(cat nuwriter/header.json | jq 'setpath(["header","image",1,"offset"];"'${BL12_DTB}'")' > nuwriter/header_tmp.json); \
-         cp nuwriter/header_tmp.json nuwriter/header.json; \
-         rm nuwriter/header_tmp.json; \
-         nuwriter/nuwriter -c nuwriter/header.json; \
+         nuwriter/nuwriter -c nuwriter/header-spinand.json; \
          nuwriter/nuwriter -p nuwriter/pack-spinand.json; \
          ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-spinand.pack; \
          rm rootfs.ubi-spinand \
@@ -73,7 +68,7 @@ IMAGE_CMD_nand() {
     if [ -f ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ubi ]; then
         (cd ${DEPLOY_DIR_IMAGE}; \
          ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ubi rootfs.ubi-nand; \
-         nuwriter/nuwriter -c nuwriter/header.json; \
+         nuwriter/nuwriter -c nuwriter/header-nand.json; \
          nuwriter/nuwriter -p nuwriter/pack-nand.json; \
          ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-nand.pack; \
          rm rootfs.ubi-nand \
@@ -87,7 +82,7 @@ IMAGE_CMD_sdcard() {
     if [ -f ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 ]; then
         ( cd ${DEPLOY_DIR_IMAGE}; \
          ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 rootfs.ext2-sdcard; \
-         nuwriter/nuwriter -c nuwriter/header.json; \
+         nuwriter/nuwriter -c nuwriter/header-sdcard.json; \
          nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
          ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
          rm rootfs.ext2-sdcard \
@@ -111,7 +106,7 @@ IMAGE_CMD_sdcard() {
     if [ -f ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 ]; then
         ( cd ${DEPLOY_DIR_IMAGE}; \
             ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 rootfs.ext2-sdcard; \
-            nuwriter/nuwriter -c nuwriter/header.json; \
+            nuwriter/nuwriter -c nuwriter/header-sdcard.json; \
             nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
             ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
             rm rootfs.ext2-sdcard \
