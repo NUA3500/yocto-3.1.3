@@ -40,7 +40,7 @@ do_compile_append() {
                 then
                     if [ -n "${UBOOT_INITIAL_ENV}" ]; then
                         cp ${WORKDIR}/uEnv-${type}.txt ${B}/${config}/u-boot-initial-env-${type}
-                        ${B}/${config}/tools/mkenvimage -s 4096 -o ${B}/${config}/u-boot-initial-env.bin-${type} ${B}/${config}/u-boot-initial-env-${type}
+                        ${B}/${config}/tools/mkenvimage -s 65536 -o ${B}/${config}/u-boot-initial-env.bin-${type} ${B}/${config}/u-boot-initial-env-${type}
                     fi
                 fi
             done
