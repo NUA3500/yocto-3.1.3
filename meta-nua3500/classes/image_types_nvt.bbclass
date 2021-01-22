@@ -140,7 +140,7 @@ IMAGE_CMD_sdcard() {
         # 0x40000
         dd if=${DEPLOY_DIR_IMAGE}/${MACHINE}.dtb of=${SDCARD} conv=notrunc seek=512 bs=512
         # 0x80000
-        dd if=${DEPLOY_DIR_IMAGE}/u-boot-${MACHINE}.bin-sdcard of=${SDCARD} conv=notrunc seek=1024 bs=512
+        dd if=${DEPLOY_DIR_IMAGE}/u-boot-initial-env.bin-sdcard of=${SDCARD} conv=notrunc seek=1024 bs=512
         # 0x100000
         dd if=${DEPLOY_DIR_IMAGE}/fip.bin of=${SDCARD} conv=notrunc seek=2048 bs=512
         # 0x200000
