@@ -54,7 +54,8 @@ EXTRA_IMAGEDEPENDS += "python3-nuwriter-native"
 # =========================================================================
 # fs
 # =========================================================================
-IMAGE_FSTYPES = " spinand sdcard nand ext2 tar.bz2 "
+#IMAGE_FSTYPES = " spinand sdcard nand ext2 tar.bz2 "
+IMAGE_FSTYPES = " sdcard ext2 tar.bz2 "
 IMAGE_CLASSES = "image_types_nvt"
 
 # Block size for SPINAND, kb
