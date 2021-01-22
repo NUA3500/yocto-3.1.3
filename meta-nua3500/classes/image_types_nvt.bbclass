@@ -59,7 +59,7 @@ IMAGE_CMD_spinand() {
          cp conv/header.bin header-spinand.bin; \
          nuwriter/nuwriter -p nuwriter/pack-spinand.json; \
          cp pack/pack.bin pack-spinand.bin; \
-         ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-spinand.pack; \
+         ln -sf pack-spinand.bin ${IMAGE_BASENAME}-${MACHINE}-spinand.pack; \
          rm rootfs.ubi-spinand \
         )
     fi
@@ -74,7 +74,7 @@ IMAGE_CMD_nand() {
          cp conv/header.bin header-nand.bin; \
          nuwriter/nuwriter -p nuwriter/pack-nand.json; \
          cp pack/pack.bin pack-nand.bin; \
-         ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-nand.pack; \
+         ln -sf pack-nand.bin ${IMAGE_BASENAME}-${MACHINE}-nand.pack; \
          rm rootfs.ubi-nand \
         )
     fi
@@ -90,7 +90,7 @@ IMAGE_CMD_sdcard() {
          cp conv/header.bin header-sdcard.bin; \
          nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
          cp pack/pack.bin pack-sdcard.bin; \
-         ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
+         ln -sf pack-sdcard.bin ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
          rm rootfs.ext2-sdcard \
         )
     fi
@@ -116,7 +116,7 @@ IMAGE_CMD_sdcard() {
             cp conv/header.bin header-sdcard.bin; \	   
             nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
             cp pack/pack.bin pack-sdcard.bin; \
-            ln -sf $(readlink -f pack/pack.bin) ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
+            ln -sf pack-sdcard.bin ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
             rm rootfs.ext2-sdcard \
         )
         SDCARD_SIZE=$(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ $ROOTFS_SIZE \+ ${IMAGE_ROOTFS_ALIGNMENT})
