@@ -130,7 +130,7 @@ IMAGE_CMD_sdcard() {
         parted -s ${SDCARD} unit KiB mkpart primary $(expr ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} + $ROOTFS_SIZE)
 
         # 0x400
-        dd if=${DEPLOY_DIR_IMAGE}/conv/header.bin of=${SDCARD} conv=notrunc seek=2 bs=512
+        dd if=${DEPLOY_DIR_IMAGE}/header-sdcard.bin of=${SDCARD} conv=notrunc seek=2 bs=512
 	# 0x10000
         dd if=${DEPLOY_DIR_IMAGE}/ddrimg_tfa.bin of=${SDCARD} conv=notrunc seek=128 bs=512
         # 0x20000
