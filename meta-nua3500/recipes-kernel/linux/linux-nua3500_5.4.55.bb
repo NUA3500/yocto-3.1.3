@@ -23,7 +23,7 @@ LOCALVERSION = "-${SRCBRANCH}"
 KERNEL_SRC ?= "git://github.com/NUA3500/linux-5.4.y.git;protocol=https"
 SRC_URI = "${KERNEL_SRC}"
 
-SRCREV="${AUTOREV}"
+SRCREV="master"
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 

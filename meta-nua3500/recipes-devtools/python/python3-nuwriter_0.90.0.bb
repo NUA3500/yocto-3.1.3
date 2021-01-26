@@ -77,6 +77,9 @@ do_deploy() {
     cp ${S}/ddrimg/* ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/ddrimg/
     cp ${WORKDIR}/xusb.bin  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
     cp ${WORKDIR}/ddrimg_tfa.bin  ${DEPLOYDIR}/${BOOT_TOOLS}/nuwriter/
+    cp ${WORKDIR}/xusb.bin  ${DEPLOYDIR}/${BOOT_TOOLS}/
+    cp ${WORKDIR}/ddrimg_tfa.bin  ${DEPLOYDIR}/${BOOT_TOOLS}/
+
 }
 
 FILES_${PN} = ""
