@@ -29,8 +29,6 @@ IMAGE_MM_PART = " \
 #
 IMAGE_DISPLAY_PART = " \
     fb-test         \
-    libdrm          \
-    libdrm-tests    \
     "
 
 #
