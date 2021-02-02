@@ -71,3 +71,6 @@ SERIAL_CONSOLES = "115200;ttyS0"
 # auto-serial-console there
 USE_VT = "0"
 
+# Free size for SD card, kb
+SDCARD_FREE_SIZE ?="0"
+
