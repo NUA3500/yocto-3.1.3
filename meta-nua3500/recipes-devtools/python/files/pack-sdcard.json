@@ -1,6 +1,11 @@
 {
 	"image":
 	[
+            {
+                    "offset": "0x0",
+		    "file": "MBR.scdard.bin",
+		    "type": 0
+            },
 	    {
 		    "offset": "0x400",
 		    "file": "conv/header.bin",
@@ -40,6 +45,11 @@
 		    "offset": "0x200000",
 		    "file": "Image",
 		    "type": 0
-	    }          
+	    },
+            {
+		    "offset": "0x2000000",
+		    "file": "rootfs.ext2-sdcard",
+		    "type": 0
+	    }
 	]
 }

@@ -110,24 +110,35 @@ IMAGE_CMD_sdcard() {
     BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE} - 1)
     generate_fip_image
     if [ -f ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 ]; then
+
+        SDCARD_SIZE=$(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ $ROOTFS_SIZE \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ ${SDCARD_FREE_SIZE})
+
+        # Initialize a sparse file
+        dd if=/dev/zero of=${SDCARD} bs=1 count=0 seek=$(expr 1024 \* ${SDCARD_SIZE})
+        echo "========================================================================="
+        echo ${BOOT_SPACE_ALIGNED}
+        echo $(expr ${IMAGE_ROOTFS_ALIGNMENT} + ${IMAGE_ROOTFS_ALIGNMENT} + ${BOOT_SPACE_ALIGNED})
+        parted -s ${SDCARD} mklabel msdos
+        parted -s ${SDCARD} unit KiB mkpart primary $(expr ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} + $ROOTFS_SIZE)
+
+        # MBR table for nuwriter
+        dd if=/dev/zero of=${DEPLOY_DIR_IMAGE}/MBR.scdard.bin bs=1 count=0 seek=512
+        dd if=${SDCARD} of=${DEPLOY_DIR_IMAGE}/MBR.scdard.bin conv=notrunc seek=0 count=1 bs=512
+
         ( cd ${DEPLOY_DIR_IMAGE}; \
             ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 rootfs.ext2-sdcard; \
             nuwriter/nuwriter -c nuwriter/header-sdcard.json; \
-            cp conv/header.bin header-sdcard.bin; \	   
+            cp conv/header.bin header-sdcard.bin; \
+
+            $(cat nuwriter/pack-sdcard.json | jq 'setpath(["image",9,"offset"];"'$(expr ${BOOT_SPACE_ALIGNED} \* 1024 + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024)'")' > nuwriter/pack-sdcard-tmp.json); \
+            cp nuwriter/pack-sdcard-tmp.json nuwriter/pack-sdcard.json; \
+            rm nuwriter/pack-sdcard-tmp.json; \
             nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
             cp pack/pack.bin pack-sdcard.bin; \
             ln -sf pack-sdcard.bin ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
-            rm rootfs.ext2-sdcard \
+            rm rootfs.ext2-sdcard; \
+            rm -rf $(date "+%m%d-*"); \
         )
-        SDCARD_SIZE=$(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ $ROOTFS_SIZE \+ ${IMAGE_ROOTFS_ALIGNMENT})
-
-	# Initialize a sparse file
-	dd if=/dev/zero of=${SDCARD} bs=1 count=0 seek=$(expr 1024 \* ${SDCARD_SIZE})
-	echo "========================================================================="
-	echo ${BOOT_SPACE_ALIGNED}
-	echo $(expr ${IMAGE_ROOTFS_ALIGNMENT} + ${IMAGE_ROOTFS_ALIGNMENT} + ${BOOT_SPACE_ALIGNED})
-        parted -s ${SDCARD} mklabel msdos
-        parted -s ${SDCARD} unit KiB mkpart primary $(expr ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} + $ROOTFS_SIZE)
 
         # 0x400
         dd if=${DEPLOY_DIR_IMAGE}/header-sdcard.bin of=${SDCARD} conv=notrunc seek=2 bs=512
@@ -138,7 +149,7 @@ IMAGE_CMD_sdcard() {
         # 0x30000
         dd if=${DEPLOY_DIR_IMAGE}/bl2-nua3500.bin of=${SDCARD} conv=notrunc seek=384 bs=512
         # 0x40000
-        dd if=${DEPLOY_DIR_IMAGE}/${MACHINE}.dtb of=${SDCARD} conv=notrunc seek=512 bs=512
+        dd if=${DEPLOY_DIR_IMAGE}/$(basename ${KERNEL_DEVICETREE}) of=${SDCARD} conv=notrunc seek=512 bs=512
         # 0x80000
         dd if=${DEPLOY_DIR_IMAGE}/u-boot-initial-env.bin-sdcard of=${SDCARD} conv=notrunc seek=1024 bs=512
         # 0x100000
