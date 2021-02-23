@@ -12,7 +12,7 @@ MAINTAINER = "Nuvoton <www.nuvoton.com>"
 
 TARGET_VENDOR = "-poky"
 
-DISTRO = "nvt-nua3500-fb"
+DISTRO = "nvt-nua3500"
 
 
 PREFERRED_PROVIDER_udev = "systemd"

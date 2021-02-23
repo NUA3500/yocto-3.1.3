@@ -24,7 +24,7 @@ directory <build-dir>. The build directory configuration is unchanged.
 Examples:
 
 - To create a new Yocto build directory:
-  $ MACHINE=nua3500evb DISTRO=nua3500-fb source $PROGNAME build
+  $ MACHINE=nua3500-evb DISTRO=nvt-nua3500 source $PROGNAME build
 
 - To use an existing Yocto build directory:
   $ source $PROGNAME build
