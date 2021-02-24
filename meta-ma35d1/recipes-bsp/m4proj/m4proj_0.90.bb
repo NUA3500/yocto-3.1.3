@@ -5,11 +5,11 @@ DEPENDS = " gcc-arm-none-eabi-native nu-eclipse-native "
 inherit deploy
 
 LICENSE = "BSD"
-LIC_FILES_CHKSUM = "file://Readme.pdf;md5=d62023be2f693605b4f6d73a5013ab30"
+LIC_FILES_CHKSUM = "file://Library/CMSIS/CMSIS_END_USER_LICENCE_AGREEMENT.pdf;md5=2CD7232123B57896151A579127C8B51B"
 
 SRCREV= "master"
 
-SRC_URI = "git://github.com/OpenNuvoton/M480BSP.git;protocol=https;branch=master"
+SRC_URI = "git://github.com/NUA3500/RTP_BSP.git;protocol=https;branch=master"
 
 PV = "M4-BSP"
 S = "${WORKDIR}/git"
