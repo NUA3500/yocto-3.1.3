@@ -22,7 +22,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=c1f21c4f72f372ef38a5a4aee55ec173"
 
 COMPATIBLE_MACHINE = "(ma35d1)"
 
-SRC_URI = "git://github.com/OpenNuvoton/MA35D1_optee_os-v3.9.0.git;protocol=https;nobranch=1"
+SRC_URI = "git://github.com/NUA3500/optee_os-v3.9.0.git;protocol=https;nobranch=1"
+
 SRCREV = "master"
 
 SRC_URI += " file://0001-allow-setting-sysroot-for-libgcc-lookup.patch \
