@@ -1,6 +1,7 @@
 # Using repo to download source
 
 repo init -u git://github.com/NUA3500/yocto-3.1.3.git -m  meta-ma35d1/base/ma35d1.xml
+
 repo sync
 
 # Build yocto
