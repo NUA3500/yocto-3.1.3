@@ -9,7 +9,7 @@ IMAGE_LINGUAS = "en-us"
 
 IMAGE_FEATURES += "splash package-management ssh-server-dropbear hwcodecs"
 
-PACKAGECONFIG_append = " examples accessibility "
+PACKAGECONFIG_append = " examples accessibility ttf-dejavu "
 
 # Define to null ROOTFS_MAXSIZE to avoid partition size restriction
 IMAGE_ROOTFS_MAXSIZE = ""
@@ -22,7 +22,6 @@ IMAGE_MM_PART = " \
     tiff \
     libv4l \
     rc-keymaps \
-    ttf-dejavu \
     "
 
 #
