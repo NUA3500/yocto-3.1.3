@@ -9,7 +9,16 @@ IMAGE_LINGUAS = "en-us"
 
 IMAGE_FEATURES += "splash package-management ssh-server-dropbear hwcodecs"
 
-PACKAGECONFIG_append = " examples accessibility ttf-dejavu "
+PACKAGECONFIG_append = " examples accessibility "
+
+IMAGE_INSTALL_append = "\
+    ttf-dejavu-sans \
+    ttf-dejavu-sans-mono \
+    ttf-dejavu-sans-condensed \
+    ttf-dejavu-serif \
+    ttf-dejavu-serif-condensed \
+    ttf-dejavu-common \
+"
 
 # Define to null ROOTFS_MAXSIZE to avoid partition size restriction
 IMAGE_ROOTFS_MAXSIZE = ""

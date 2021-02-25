@@ -10,7 +10,7 @@ SRC_URI += " \
 do_package_qa[noexec] = "1"
 do_install() {
     install -d ${D}/${base_libdir}/modules/${KV}
-    install -m 0644 ${WORKDIR}/dcultrafb.ko ${D}/${base_libdir}/modules/${KV}/vc8000.ko
+    install -m 0644 ${WORKDIR}/vc8000.ko ${D}/${base_libdir}/modules/${KV}/vc8000.ko
 }
 
 FILES_SOLIBSDEV = ""
