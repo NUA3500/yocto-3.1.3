@@ -5,7 +5,7 @@ DEPENDS = " gcc-arm-none-eabi-native nu-eclipse-native "
 inherit deploy
 
 LICENSE = "BSD"
-LIC_FILES_CHKSUM = "file://Library/CMSIS/CMSIS_END_USER_LICENCE_AGREEMENT.pdf;md5=2CD7232123B57896151A579127C8B51B"
+LIC_FILES_CHKSUM = "file://Library/CMSIS/CMSIS_END_USER_LICENCE_AGREEMENT.pdf;md5=2cd7232123b57896151a579127c8b51b"
 
 SRCREV= "master"
 
