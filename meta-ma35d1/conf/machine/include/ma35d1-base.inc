@@ -37,7 +37,7 @@ EXTRA_IMAGEDEPENDS += "virtual/trusted-firmware-a"
 # optee-os
 # =========================================================================
 OPTEE_PLATFORM = "nuvoton"
-OPTEE_PLATFORM_FLAVOR = "ma35d1"
+OPTEE_PLATFORM_FLAVOR = "MA35D1"
 PREFERRED_PROVIDER_virtual/optee-os = "optee-os-ma35d1"
 EXTRA_IMAGEDEPENDS += "virtual/optee-os"
 
