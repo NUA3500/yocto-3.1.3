@@ -1,5 +1,5 @@
 baudrate=9600
-bootdelay=0
+bootdelay=3
 fdtcontroladdr=8de765b0
 loadaddr=0x81000000
 stderr=serial@40700000
