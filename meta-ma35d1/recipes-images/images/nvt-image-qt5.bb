@@ -18,7 +18,8 @@ IMAGE_INSTALL_append = "\
     ttf-dejavu-serif \
     ttf-dejavu-serif-condensed \
     ttf-dejavu-common \
-"
+    qt5-env \
+    "
 
 # Define to null ROOTFS_MAXSIZE to avoid partition size restriction
 IMAGE_ROOTFS_MAXSIZE = ""
