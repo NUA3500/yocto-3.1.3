@@ -18,7 +18,7 @@ do_image_spinand[depends] = "virtual/trusted-firmware-a:do_deploy \
                              jq-native:do_populate_sysroot \
                             "
 
-IMAGE_TYPEDEP_sdcard = "ext2"
+IMAGE_TYPEDEP_sdcard = "ext4"
 do_image_sdcard[depends] = "parted-native:do_populate_sysroot \
                             virtual/trusted-firmware-a:do_deploy \
                             ${@bb.utils.contains('MACHINE_FEATURES', 'optee', 'virtual/optee-os:do_deploy', '',d)} \
@@ -80,23 +80,6 @@ IMAGE_CMD_nand() {
     fi
 }
 
-#if 0
-IMAGE_CMD_sdcard() {
-    generate_fip_image
-    if [ -f ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 ]; then
-        ( cd ${DEPLOY_DIR_IMAGE}; \
-         ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 rootfs.ext2-sdcard; \
-         nuwriter/nuwriter -c nuwriter/header-sdcard.json; \
-         cp conv/header.bin header-sdcard.bin; \
-         nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
-         cp pack/pack.bin pack-sdcard.bin; \
-         ln -sf pack-sdcard.bin ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
-         rm rootfs.ext2-sdcard \
-        )
-    fi
-}
-#else
-
 SDCARD = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.sdcard"
 
 # Boot partition size [in KiB]
@@ -106,27 +89,24 @@ BOOT_SPACE ?= "32768"
 IMAGE_ROOTFS_ALIGNMENT ?= "4096"
 
 IMAGE_CMD_sdcard() {
-#   BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE} + ${IMAGE_ROOTFS_ALIGNMENT} - 1)
-    BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE} - 1)
+    BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE} )
     generate_fip_image
-    if [ -f ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 ]; then
+    if [ -f ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext4 ]; then
 
         SDCARD_SIZE=$(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ $ROOTFS_SIZE \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ ${SDCARD_FREE_SIZE})
 
         # Initialize a sparse file
         dd if=/dev/zero of=${SDCARD} bs=1 count=0 seek=$(expr 1024 \* ${SDCARD_SIZE})
-        echo "========================================================================="
-        echo ${BOOT_SPACE_ALIGNED}
-        echo $(expr ${IMAGE_ROOTFS_ALIGNMENT} + ${IMAGE_ROOTFS_ALIGNMENT} + ${BOOT_SPACE_ALIGNED})
         parted -s ${SDCARD} mklabel msdos
-        parted -s ${SDCARD} unit KiB mkpart primary $(expr ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} + $ROOTFS_SIZE + ${SDCARD_FREE_SIZE})
+        parted -s ${SDCARD} unit KiB mkpart primary $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ $ROOTFS_SIZE \+ ${SDCARD_FREE_SIZE})
+        parted ${SDCARD} print
 
         # MBR table for nuwriter
         dd if=/dev/zero of=${DEPLOY_DIR_IMAGE}/MBR.scdard.bin bs=1 count=0 seek=512
         dd if=${SDCARD} of=${DEPLOY_DIR_IMAGE}/MBR.scdard.bin conv=notrunc seek=0 count=1 bs=512
 
         ( cd ${DEPLOY_DIR_IMAGE}; \
-            ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 rootfs.ext2-sdcard; \
+            ln -sf ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext4 rootfs.ext4-sdcard; \
             nuwriter/nuwriter -c nuwriter/header-sdcard.json; \
             cp conv/header.bin header-sdcard.bin; \
 
@@ -136,7 +116,7 @@ IMAGE_CMD_sdcard() {
             nuwriter/nuwriter -p nuwriter/pack-sdcard.json; \
             cp pack/pack.bin pack-sdcard.bin; \
             ln -sf pack-sdcard.bin ${IMAGE_BASENAME}-${MACHINE}-sdcard.pack; \
-            rm rootfs.ext2-sdcard; \
+            rm rootfs.ext4-sdcard; \
             rm -rf $(date "+%m%d-*"); \
         )
 
@@ -157,8 +137,7 @@ IMAGE_CMD_sdcard() {
         # 0x200000
         dd if=${DEPLOY_DIR_IMAGE}/Image-${MACHINE}.bin of=${SDCARD} conv=notrunc seek=4096 bs=512
         # root fs
-        dd if=${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext2 of=${SDCARD} conv=notrunc,fsync seek=1 bs=$(expr ${BOOT_SPACE_ALIGNED} \* 1024 + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024)
+        dd if=${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext4 of=${SDCARD} conv=notrunc,fsync seek=1 bs=$(expr ${BOOT_SPACE_ALIGNED} \* 1024 + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024)
     fi
 }
-#endif
 

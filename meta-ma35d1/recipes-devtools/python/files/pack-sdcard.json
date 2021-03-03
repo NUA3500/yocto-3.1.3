@@ -48,7 +48,7 @@
 	    },
             {
 		    "offset": "0x2000000",
-		    "file": "rootfs.ext2-sdcard",
+		    "file": "rootfs.ext4-sdcard",
 		    "type": 0
 	    }
 	]
