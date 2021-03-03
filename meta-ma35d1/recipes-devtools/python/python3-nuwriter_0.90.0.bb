@@ -1,7 +1,7 @@
 SUMMARY = "This is a python nuwriter for ma35d1 tool "
 
 LICENSE = "BSD"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=39bba7d2cf0ba1036f2a6e2be52fe3f0"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=e49f4652534af377a713df3d9dec60cb"
 
 inherit deploy native pypi setuptools3
 
