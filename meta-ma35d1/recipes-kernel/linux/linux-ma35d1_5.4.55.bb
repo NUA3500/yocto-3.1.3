@@ -21,6 +21,10 @@ LOCALVERSION = "-${SRCBRANCH}"
 KERNEL_SRC ?= "git://github.com/NUA3500/linux-5.4.y.git;protocol=https"
 SRC_URI = "${KERNEL_SRC}"
 
+SRC_URI += " \
+    file://cfg80211.config \
+    "
+
 SRCREV="master"
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
@@ -36,6 +40,7 @@ KERNEL_IMAGETYPE = "Image"
 do_configure_prepend() {
     bbnote "Copying defconfig"
     cp ${S}/arch/${ARCH}/configs/${KERNEL_DEFCONFIG} ${WORKDIR}/defconfig
+    cat ${WORKDIR}/cfg80211.config >> ${WORKDIR}/defconfig
 }
 
 COMPATIBLE_MACHINE = "(ma35d1)"
