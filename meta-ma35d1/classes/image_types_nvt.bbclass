@@ -89,16 +89,16 @@ BOOT_SPACE ?= "32768"
 IMAGE_ROOTFS_ALIGNMENT ?= "4096"
 
 IMAGE_CMD_sdcard() {
-    BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE} )
+    BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE} - 1 )
     generate_fip_image
     if [ -f ${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext4 ]; then
 
-        SDCARD_SIZE=$(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ $ROOTFS_SIZE \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ ${SDCARD_FREE_SIZE})
+        SDCARD_SIZE=$(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ $ROOTFS_SIZE \+ ${IMAGE_ROOTFS_ALIGNMENT})
 
         # Initialize a sparse file
         dd if=/dev/zero of=${SDCARD} bs=1 count=0 seek=$(expr 1024 \* ${SDCARD_SIZE})
         parted -s ${SDCARD} mklabel msdos
-        parted -s ${SDCARD} unit KiB mkpart primary $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ $ROOTFS_SIZE \+ ${SDCARD_FREE_SIZE})
+        parted -s ${SDCARD} unit KiB mkpart primary $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT} \+ $ROOTFS_SIZE )
         parted ${SDCARD} print
 
         # MBR table for nuwriter
