@@ -4,7 +4,6 @@ SECTION = "libs"
 LICENSE = "CLOSED"
 
 RV = "1.7-7"
-KV = "5.4.50"
 
 SRC_URI += " \
     file://libdirectfb_gal.so \

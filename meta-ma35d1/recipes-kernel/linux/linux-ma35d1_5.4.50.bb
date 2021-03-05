@@ -25,6 +25,9 @@ SRC_URI += " \
     file://cfg80211.config \
     "
 
+SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', '8189es', ' file://8189es.ko', '', d)}"
+SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', '8192es', ' file://8192es.ko', '', d)}"
+
 SRCREV="master"
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
@@ -42,5 +45,16 @@ do_configure_prepend() {
     cp ${S}/arch/${ARCH}/configs/${KERNEL_DEFCONFIG} ${WORKDIR}/defconfig
     cat ${WORKDIR}/cfg80211.config >> ${WORKDIR}/defconfig
 }
+
+do_install_append() {
+    if [ -e ${WORKDIR}/8189es.ko ]; then
+        install -d ${D}/${base_libdir}/modules/${KV}
+        install -m 0644 ${WORKDIR}/8189es.ko ${D}/${base_libdir}/modules/${PV}/8189es.ko
+    elif [ -e ${WORKDIR}/8192es.ko ]; then
+        install -d ${D}/${base_libdir}/modules/${KV}
+        install -m 0644 ${WORKDIR}/8192es.ko ${D}/${base_libdir}/modules/${PV}/8192es.ko
+    fi
+}
+
 
 COMPATIBLE_MACHINE = "(ma35d1)"
